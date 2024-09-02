@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 rootProject.name = "Nbp"
 include(":app")
 include(":NbpApi")
+include(":database")
