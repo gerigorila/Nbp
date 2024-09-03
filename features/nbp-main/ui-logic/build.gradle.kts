@@ -39,6 +39,9 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
 
+    compileOnly(libs.androidx.compose.runtime)
+    api(libs.kotlinx.immutable)
+
     api(projects.core.data)
 
     implementation(libs.dagger.hilt.android)
