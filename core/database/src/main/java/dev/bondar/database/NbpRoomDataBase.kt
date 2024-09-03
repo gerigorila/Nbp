@@ -7,13 +7,13 @@ import androidx.room.RoomDatabase
 import dev.bondar.database.dao.RateDao
 import dev.bondar.database.models.RateDBO
 
-class NbpDataBase internal constructor(private val database: NewsRoomDatabase) {
-    val articlesDao: RateDao
+class NbpDataBase internal constructor(private val database: NbpRoomDatabase) {
+    val rateDao: RateDao
         get() = database.ratesDao()
 }
 
 @Database(entities = [RateDBO::class], version = 1)
-internal abstract class NewsRoomDatabase : RoomDatabase() {
+internal abstract class NbpRoomDatabase : RoomDatabase() {
     abstract fun ratesDao(): RateDao
 }
 
@@ -21,7 +21,7 @@ fun NbpDataBase(applicationContext: Context): NbpDataBase {
     val newsRoomDatabase =
         Room.databaseBuilder(
             checkNotNull(applicationContext.applicationContext),
-            NewsRoomDatabase::class.java,
+            NbpRoomDatabase::class.java,
             "nbp"
         ).build()
     return NbpDataBase(newsRoomDatabase)
