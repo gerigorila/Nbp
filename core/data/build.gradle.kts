@@ -47,4 +47,6 @@ dependencies {
     implementation(projects.core.database)
     implementation(projects.core.nbpApi)
     implementation(projects.core.common)
+
+    implementation(libs.javax.inject)
 }
