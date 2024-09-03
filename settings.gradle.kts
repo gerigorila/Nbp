@@ -1,5 +1,3 @@
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 pluginManagement {
     repositories {
         google {
@@ -22,6 +20,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Nbp"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":core:nbp-api")
 include(":core:database")
