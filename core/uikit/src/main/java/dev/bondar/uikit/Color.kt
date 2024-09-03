@@ -1,4 +1,4 @@
-package dev.bondar.nbp.ui.theme
+package dev.bondar.uikit
 
 import androidx.compose.ui.graphics.Color
 
