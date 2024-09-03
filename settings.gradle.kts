@@ -23,6 +23,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Nbp"
 include(":app")
-include(":nbp-api")
-include(":database")
-include(":features:nbp-main")
+include(":core:nbp-api")
+include(":core:database")
+include(":features:nbp-main:ui-logic")
+include(":core:data")

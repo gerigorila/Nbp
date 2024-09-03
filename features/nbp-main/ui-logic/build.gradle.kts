@@ -54,7 +54,4 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.kotlinx.coroutines.android)
-
-    implementation(projects.database)
-    implementation(projects.nbpApi)
 }
