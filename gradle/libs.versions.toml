@@ -61,6 +61,7 @@ dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javax-inject" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "androidx-compose-runtime" }
 kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-immutable"}
+retrofit-responseTypeKeeper = { module = "com.squareup.retrofit2:response-type-keeper", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -67,4 +67,6 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.uikit)
     implementation(projects.features.nbpMain.ui)
+
+    debugImplementation(libs.okhttp.logging.interceptor)
 }

@@ -5,6 +5,7 @@ import dev.bondar.nbpapi.models.RateDTO
 import dev.bondar.nbpapi.models.ResponseDTO
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
@@ -24,12 +25,14 @@ interface NbpApi {
 fun NbpApi(
     baseUrl: String,
     json: Json = Json,
+    okHttpClient: OkHttpClient,
 ): NbpApi {
-    return retrofit(baseUrl, json).create()
+    return retrofit(baseUrl, okHttpClient, json).create()
 }
 
 private fun retrofit(
     baseUrl: String,
+    okHttpClient: OkHttpClient,
     json: Json,
 ): Retrofit {
     val jsonConverterFactory = json.asConverterFactory("application/json".toMediaType())
@@ -38,5 +41,6 @@ private fun retrofit(
         .baseUrl(baseUrl)
         .addConverterFactory(jsonConverterFactory)
         .addCallAdapterFactory(ResultCallAdapterFactory.create())
+        .client(okHttpClient)
         .build()
 }
