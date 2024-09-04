@@ -18,11 +18,11 @@ internal abstract class NbpRoomDatabase : RoomDatabase() {
 }
 
 fun NbpDataBase(applicationContext: Context): NbpDataBase {
-    val newsRoomDatabase =
+    val nbpRoomDatabase =
         Room.databaseBuilder(
             checkNotNull(applicationContext.applicationContext),
             NbpRoomDatabase::class.java,
             "nbp"
         ).build()
-    return NbpDataBase(newsRoomDatabase)
+    return NbpDataBase(nbpRoomDatabase)
 }

@@ -16,10 +16,10 @@ interface RateDao {
     fun observeAll(): Flow<List<RateDBO>>
 
     @Insert
-    suspend fun insert(articles: List<RateDBO>)
+    suspend fun insert(rates: List<RateDBO>)
 
     @Delete
-    suspend fun remove(articles: List<RateDBO>)
+    suspend fun remove(rates: List<RateDBO>)
 
     @Query("DELETE FROM rates")
     suspend fun clean()
