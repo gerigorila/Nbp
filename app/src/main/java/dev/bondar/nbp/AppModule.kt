@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.bondar.common.AndroidLogcatLogger
+import dev.bondar.common.Logger
 import dev.bondar.nbpapi.NbpApi
 import javax.inject.Singleton
 
@@ -16,4 +18,7 @@ object AppModule {
     fun provideNbpApi(): NbpApi {
         return NbpApi(baseUrl = BuildConfig.NBP_API_BASE_URL)
     }
+
+    @Provides
+    fun provideLogger(): Logger = AndroidLogcatLogger()
 }
