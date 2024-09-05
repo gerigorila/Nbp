@@ -7,4 +7,5 @@ public data class CurrencyRate(
     val mid: Double?,
     val currency: String?,
     val code: String?,
+    val color: Int,
 )

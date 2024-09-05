@@ -6,4 +6,5 @@ public data class CurrencyRateUI(
     val mid: Double?,
     val currency: String?,
     val code: String?,
+    val color: Int,
 )

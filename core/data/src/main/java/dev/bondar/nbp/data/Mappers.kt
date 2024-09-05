@@ -14,12 +14,13 @@ internal fun RateDTO.toRates(table: String): Rate {
     )
 }
 
-internal fun CurrencyRateDTO.toCurrencyRate(currency: String, code: String): CurrencyRate {
+internal fun CurrencyRateDTO.toCurrencyRate(currency: String, code: String, color: Int): CurrencyRate {
     return CurrencyRate(
         currency = currency,
         code = code,
         no = no,
         effectiveDate = effectiveDate,
         mid = mid,
+        color = color,
     )
 }

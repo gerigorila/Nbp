@@ -24,6 +24,7 @@ internal fun CurrencyRate.toUiCurrencyRates(): CurrencyRateUI {
         mid = mid,
         currency = currency,
         code = code,
+        color = color
     )
 }
 

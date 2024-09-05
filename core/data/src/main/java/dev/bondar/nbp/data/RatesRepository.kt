@@ -1,5 +1,6 @@
 package dev.bondar.nbp.data
 
+import android.graphics.Color
 import dev.bondar.common.Logger
 import dev.bondar.nbp.data.model.CurrencyRate
 import dev.bondar.nbp.data.model.Rate
@@ -97,13 +98,22 @@ public class RatesRepository @Inject constructor(
             start
         ).map { result: RequestResult<CurrencyResponseDTO<CurrencyRateDTO>> ->
             result.map { response ->
-                response.rates.map {
+                response.rates.reversed().map {
                     it.toCurrencyRate(
-                        result.data?.currency ?: "",
-                        result.data?.code ?: ""
+                        currency = response.currency,
+                        code = response.code,
+                        color = checkCurrencyTrend(response.rates.first().mid, it.mid)
                     )
                 }
             }
         }
+    }
+}
+
+private fun checkCurrencyTrend(firstMid: Double?, currentMid: Double?): Int {
+    return if (firstMid != null && currentMid != null && (firstMid - currentMid) < (firstMid * 0.01)) {
+        Color.RED
+    } else {
+        Color.BLACK
     }
 }
