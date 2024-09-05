@@ -24,6 +24,7 @@ dagger = "2.52"
 javax-inject = "1"
 androidx-compose-runtime = "1.6.8"
 kotlinx-immutable = "0.3.7"
+nav-version = "2.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -62,6 +63,7 @@ javax-inject = { module = "javax.inject:javax.inject", version.ref = "javax-inje
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "androidx-compose-runtime" }
 kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-immutable"}
 retrofit-responseTypeKeeper = { module = "com.squareup.retrofit2:response-type-keeper", version.ref = "retrofit" }
+nav-version = { module = "androidx.navigation:navigation-compose", version.ref = "nav-version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -61,12 +61,13 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
 
+    debugImplementation(libs.okhttp.logging.interceptor)
+
     implementation(projects.core.data)
     implementation(projects.core.nbpApi)
     implementation(projects.core.database)
     implementation(projects.core.common)
     implementation(projects.core.uikit)
     implementation(projects.features.nbpMain.ui)
-
-    debugImplementation(libs.okhttp.logging.interceptor)
+    implementation(projects.navigation.nbpNavigation)
 }
