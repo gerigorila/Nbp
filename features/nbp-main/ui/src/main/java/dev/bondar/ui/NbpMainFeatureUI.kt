@@ -13,23 +13,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import dev.bondar.nbp_main.NbpMainViewModel
 import dev.bondar.nbp_main.State
+import dev.bondar.ui.screens.main.RateList
 import dev.bondar.uikit.NbpTheme
 
 @Composable
 fun NbpMainScreen(modifier: Modifier = Modifier) {
-    NbpMainScreen(viewModel = viewModel(), modifier = modifier)
-}
-
-@Composable
-internal fun NbpMainScreen(
-    viewModel: NbpMainViewModel,
-    modifier: Modifier = Modifier,
-) {
+    val viewModel: NbpMainViewModel = hiltViewModel()
     val state by viewModel.state.collectAsState()
     val currentState = state
+
     NbpMainContent(currentState, modifier)
 }
 

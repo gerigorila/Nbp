@@ -1,5 +1,6 @@
-package dev.bondar.ui
+package dev.bondar.ui.screens.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.bondar.nbp_main.RateUI
 import dev.bondar.nbp_main.State
+import dev.bondar.ui.routes.LocalNavController
+import dev.bondar.ui.routes.NbpRateInfoRoute
 import dev.bondar.uikit.NbpTheme
 
 
@@ -48,8 +51,11 @@ internal fun Rate(
     rate: RateUI,
     modifier: Modifier = Modifier,
 ) {
+    val navController = LocalNavController.current
     Row(
-        modifier.padding(bottom = 4.dp),
+        modifier = modifier
+            .padding(bottom = 4.dp)
+            .clickable { navController.navigate(NbpRateInfoRoute) },
         verticalAlignment = Alignment.CenterVertically
     ) {
 
