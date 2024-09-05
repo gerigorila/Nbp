@@ -52,6 +52,9 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
 
+    implementation(libs.nav.version)
+    implementation(libs.dagger.hilt.nav.compose)
+
     implementation(projects.core.uikit)
     implementation(projects.core.common)
     implementation(projects.features.nbpMain.uiLogic)

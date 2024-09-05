@@ -45,4 +45,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.activity.compose)
     implementation(libs.nav.version)
+
+    implementation(projects.features.nbpMain.ui)
 }
