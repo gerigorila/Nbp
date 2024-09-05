@@ -1,4 +1,4 @@
-package dev.bondar.nbp_main
+package dev.bondar.nbp_main.main
 
 import dev.bondar.nbp.data.RequestResult
 import dev.bondar.nbp.data.model.Rate

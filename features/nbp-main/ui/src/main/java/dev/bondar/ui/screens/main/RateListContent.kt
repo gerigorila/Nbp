@@ -17,8 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.bondar.nbp_main.RateUI
-import dev.bondar.nbp_main.State
+import dev.bondar.nbp_main.main.RateUI
+import dev.bondar.nbp_main.main.State
 import dev.bondar.ui.routes.LocalNavController
 import dev.bondar.ui.routes.NbpRateInfoRoute
 import dev.bondar.uikit.NbpTheme

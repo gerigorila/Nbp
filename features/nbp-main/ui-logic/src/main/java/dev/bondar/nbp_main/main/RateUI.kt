@@ -1,4 +1,4 @@
-package dev.bondar.nbp_main
+package dev.bondar.nbp_main.main
 
 public data class RateUI(
     val currency: String?,

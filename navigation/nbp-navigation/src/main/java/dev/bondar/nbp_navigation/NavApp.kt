@@ -9,7 +9,7 @@ import dev.bondar.ui.routes.LocalNavController
 import dev.bondar.ui.routes.NbpMainRoute
 import dev.bondar.ui.NbpMainScreen
 import dev.bondar.ui.routes.NbpRateInfoRoute
-import dev.bondar.ui.screens.rate_info.RateInfo
+import dev.bondar.ui.screens.rate_info.RateInfoScreen
 
 @Composable
 fun NavApp() {
@@ -22,7 +22,7 @@ fun NavApp() {
             startDestination = NbpMainRoute
         ) {
             composable(NbpMainRoute) { NbpMainScreen() }
-            composable(NbpRateInfoRoute) { RateInfo() }
+            composable(NbpRateInfoRoute) { RateInfoScreen() }
         }
     }
 }

@@ -1,4 +1,4 @@
-package dev.bondar.nbp_main
+package dev.bondar.nbp_main.main
 
 import kotlinx.collections.immutable.ImmutableList
 
