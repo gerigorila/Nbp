@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import dev.bondar.nbp_main.main.RateUI
 import dev.bondar.nbp_main.main.State
 import dev.bondar.ui.routes.LocalNavController
-import dev.bondar.ui.routes.NbpRateInfoRoute
+import dev.bondar.ui.routes.NbpCurrencyRateInfoRoute
 import dev.bondar.uikit.NbpTheme
 
 
@@ -55,7 +55,7 @@ internal fun Rate(
     Row(
         modifier = modifier
             .padding(bottom = 4.dp)
-            .clickable { navController.navigate(NbpRateInfoRoute) },
+            .clickable { navController.navigate(NbpCurrencyRateInfoRoute) },
         verticalAlignment = Alignment.CenterVertically
     ) {
 

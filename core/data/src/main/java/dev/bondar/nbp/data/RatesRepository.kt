@@ -41,4 +41,9 @@ public class RatesRepository @Inject constructor(
                 }
             }
     }
+
+    public fun getCurrencyRateInfoFromServer() {
+//        val val apiRequest = flow { emit(api.table(query)) }
+
+    }
 }

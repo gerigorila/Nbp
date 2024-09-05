@@ -8,8 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import dev.bondar.ui.routes.LocalNavController
 import dev.bondar.ui.routes.NbpMainRoute
 import dev.bondar.ui.NbpMainScreen
-import dev.bondar.ui.routes.NbpRateInfoRoute
-import dev.bondar.ui.screens.rate_info.RateInfoScreen
+import dev.bondar.ui.routes.NbpCurrencyRateInfoRoute
+import dev.bondar.ui.screens.currency_rate_info.CurrencyRateInfoScreen
 
 @Composable
 fun NavApp() {
@@ -22,7 +22,7 @@ fun NavApp() {
             startDestination = NbpMainRoute
         ) {
             composable(NbpMainRoute) { NbpMainScreen() }
-            composable(NbpRateInfoRoute) { RateInfoScreen() }
+            composable(NbpCurrencyRateInfoRoute) { CurrencyRateInfoScreen() }
         }
     }
 }
