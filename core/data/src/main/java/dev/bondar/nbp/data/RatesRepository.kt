@@ -6,9 +6,8 @@ import dev.bondar.nbp.data.model.Rate
 import dev.bondar.nbpapi.NbpApi
 import dev.bondar.nbpapi.models.CurrencyRateDTO
 import dev.bondar.nbpapi.models.CurrencyResponseDTO
-import dev.bondar.nbpapi.models.RateDTO
-import dev.bondar.nbpapi.models.ResponseDTO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -21,7 +20,7 @@ public class RatesRepository @Inject constructor(
     private val logger: Logger,
 ) {
     public fun getTableRatesFromServer(query: String): Flow<RequestResult<List<Rate>>> {
-        val apiRequest = flow { emit(api.table(query = query)) }
+        val apiRequestTableA = flow { emit(api.table("A")) }
             .onEach { result ->
                 if (result.isSuccess) logger.d("AAA", "Success result")
             }
@@ -35,14 +34,36 @@ public class RatesRepository @Inject constructor(
             }
             .map { it.toRequestResult() }
 
-        val start = flowOf<RequestResult<List<ResponseDTO<RateDTO>>>>(RequestResult.InProgress())
-
-        return merge(apiRequest, start)
-            .map { result: RequestResult<List<ResponseDTO<RateDTO>>> ->
-                result.map { response ->
-                    response.first().rates.map { it.toRates() }
+        val apiRequestTableB = flow { emit(api.table("B")) }
+            .onEach { result ->
+                if (result.isSuccess) logger.d("AAA", "Success result")
+            }
+            .onEach { result ->
+                if (result.isFailure) {
+                    logger.e(
+                        "AAA",
+                        "Error getting data from server. Cause = ${result.exceptionOrNull()}"
+                    )
                 }
             }
+            .map { it.toRequestResult() }
+
+        return combine(apiRequestTableA, apiRequestTableB) { resultA, resultB ->
+            val rates = mutableListOf<Rate>()
+            resultA.data?.forEach { responseDTO ->
+                responseDTO.rates.forEach { rateDTO ->
+                    rates.add(rateDTO.toRates(responseDTO.table))
+                }
+            }
+
+            resultB.data?.forEach { responseDTO ->
+                responseDTO.rates.forEach { rateDTO ->
+                    rates.add(rateDTO.toRates(responseDTO.table))
+                }
+            }
+
+            RequestResult.Success(rates)
+        }
     }
 
     public fun getCurrencyRateInfoFromServer(): Flow<RequestResult<List<CurrencyRate>>> {
@@ -68,11 +89,20 @@ public class RatesRepository @Inject constructor(
             }
             .map { it.toRequestResult() }
 
-        val start = flowOf<RequestResult<CurrencyResponseDTO<CurrencyRateDTO>>>(RequestResult.InProgress())
+        val start =
+            flowOf<RequestResult<CurrencyResponseDTO<CurrencyRateDTO>>>(RequestResult.InProgress())
 
-        return merge(apiRequest, start).map { result: RequestResult<CurrencyResponseDTO<CurrencyRateDTO>> ->
+        return merge(
+            apiRequest,
+            start
+        ).map { result: RequestResult<CurrencyResponseDTO<CurrencyRateDTO>> ->
             result.map { response ->
-                response.rates.map { it.toCurrencyRate(result.data?.currency?: "", result.data?.code?: "") }
+                response.rates.map {
+                    it.toCurrencyRate(
+                        result.data?.currency ?: "",
+                        result.data?.code ?: ""
+                    )
+                }
             }
         }
     }

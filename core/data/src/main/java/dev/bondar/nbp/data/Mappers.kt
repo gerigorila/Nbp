@@ -5,11 +5,12 @@ import dev.bondar.nbp.data.model.Rate
 import dev.bondar.nbpapi.models.CurrencyRateDTO
 import dev.bondar.nbpapi.models.RateDTO
 
-internal fun RateDTO.toRates(): Rate {
+internal fun RateDTO.toRates(table: String): Rate {
     return Rate(
         currency = currency,
         code = code,
         mid = mid,
+        table = table,
     )
 }
 

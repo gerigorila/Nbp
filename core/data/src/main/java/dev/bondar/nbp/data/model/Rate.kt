@@ -5,6 +5,7 @@ public data class Rate(
     val currency: String?,
     val code: String?,
     val mid: Double?,
+    val table: String?,
 ) {
     public companion object {
         public const val ID_NONE: Long = 0L
