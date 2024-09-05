@@ -1,8 +1,11 @@
 package dev.bondar.nbp.data
 
 import dev.bondar.common.Logger
+import dev.bondar.nbp.data.model.CurrencyRate
 import dev.bondar.nbp.data.model.Rate
 import dev.bondar.nbpapi.NbpApi
+import dev.bondar.nbpapi.models.CurrencyRateDTO
+import dev.bondar.nbpapi.models.CurrencyResponseDTO
 import dev.bondar.nbpapi.models.RateDTO
 import dev.bondar.nbpapi.models.ResponseDTO
 import kotlinx.coroutines.flow.Flow
@@ -42,8 +45,35 @@ public class RatesRepository @Inject constructor(
             }
     }
 
-    public fun getCurrencyRateInfoFromServer() {
-//        val val apiRequest = flow { emit(api.table(query)) }
+    public fun getCurrencyRateInfoFromServer(): Flow<RequestResult<List<CurrencyRate>>> {
+        val apiRequest = flow {
+            emit(
+                api.currencyRate(
+                    table = "A",
+                    code = "HKD",
+                    startDate = "2024-08-01",
+                    endDate = "2024-09-03"
+                )
+            )
+        }.onEach { result ->
+            if (result.isSuccess) logger.d("AAA", "Success result")
+        }
+            .onEach { result ->
+                if (result.isFailure) {
+                    logger.e(
+                        "AAA",
+                        "Error getting data from server. Cause = ${result.exceptionOrNull()}"
+                    )
+                }
+            }
+            .map { it.toRequestResult() }
 
+        val start = flowOf<RequestResult<CurrencyResponseDTO<CurrencyRateDTO>>>(RequestResult.InProgress())
+
+        return merge(apiRequest, start).map { result: RequestResult<CurrencyResponseDTO<CurrencyRateDTO>> ->
+            result.map { response ->
+                response.rates.map { it.toCurrencyRate(result.data?.currency?: "", result.data?.code?: "") }
+            }
+        }
     }
 }
