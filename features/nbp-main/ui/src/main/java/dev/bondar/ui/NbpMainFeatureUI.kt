@@ -20,25 +20,26 @@ import dev.bondar.ui.screens.main.RateList
 import dev.bondar.uikit.NbpTheme
 
 @Composable
-fun NbpMainScreen(modifier: Modifier = Modifier) {
+fun NbpMainScreen(modifier: Modifier = Modifier, onCurrencyClicked: (String?, String?) -> Unit) {
     val viewModel: NbpMainViewModel = hiltViewModel()
     val state by viewModel.state.collectAsState()
     val currentState = state
 
-    NbpMainContent(currentState, modifier)
+    NbpMainContent(currentState, modifier, onCurrencyClicked)
 }
 
 @Composable
 private fun NbpMainContent(
     currentState: State,
     modifier: Modifier = Modifier,
+    onCurrencyClicked: (String?, String?) -> Unit,
 ) {
     Column(modifier) {
         when (currentState) {
             is State.None -> Unit
             is State.Error -> ErrorMessage(currentState)
             is State.Loading -> ProgressIndicator(currentState)
-            is State.Success -> RateList(currentState)
+            is State.Success -> RateList(currentState, onCurrencyClicked = onCurrencyClicked)
         }
     }
 }

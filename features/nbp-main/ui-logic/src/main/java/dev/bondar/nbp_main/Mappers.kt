@@ -9,11 +9,12 @@ import dev.bondar.nbp_main.main.RateUI
 import dev.bondar.nbp_main.main.State
 import kotlinx.collections.immutable.toImmutableList
 
-internal fun Rate.toUiRates(): RateUI {
+internal fun Rate.toUiRates(table: String?): RateUI {
     return RateUI(
         currency = currency,
         code = code,
         mid = mid,
+        table = table
     )
 }
 

@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.map
 internal class GetTableRatesUseCase @Inject constructor(
     private val repository: RatesRepository,
 ) {
-    operator fun invoke(query: String): Flow<RequestResult<List<RateUI>>> {
-        return repository.getTableRatesFromServer(query).map { requestResult ->
-            requestResult.map { rates -> rates.map { it.toUiRates() } }
+    operator fun invoke(): Flow<RequestResult<List<RateUI>>> {
+        return repository.getTableRatesFromServer().map { requestResult ->
+            requestResult.map { rates -> rates.map { it.toUiRates(rates.first().table) } }
         }
     }
 }

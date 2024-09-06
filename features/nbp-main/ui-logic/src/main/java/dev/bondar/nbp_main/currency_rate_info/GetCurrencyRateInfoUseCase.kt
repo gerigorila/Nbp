@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.map
 internal class GetCurrencyRateInfoUseCase @Inject constructor(
     private val repository: RatesRepository,
 ) {
-    operator fun invoke(): Flow<RequestResult<List<CurrencyRateUI>>> {
-        return repository.getCurrencyRateInfoFromServer().map { requestResult ->
+    operator fun invoke(code: String, table: String): Flow<RequestResult<List<CurrencyRateUI>>> {
+        return repository.getCurrencyRateInfoFromServer(code,table).map { requestResult ->
             requestResult.map { rates -> rates.map { it.toUiCurrencyRates() } }
         }
     }

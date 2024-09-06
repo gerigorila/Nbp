@@ -17,7 +17,7 @@ public class NbpMainViewModel @Inject internal constructor(
 ) : ViewModel() {
 
     public val state: StateFlow<State> =
-        getTableUseCase.get().invoke(query = "A")
+        getTableUseCase.get().invoke()
             .map { it.toState() }
             .stateIn(viewModelScope, SharingStarted.Lazily, State.None)
 }
