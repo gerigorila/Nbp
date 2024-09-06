@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.createGraph
 import androidx.navigation.toRoute
-import dev.bondar.ui.NbpMainScreen
+import dev.bondar.ui.screens.main.NbpMainScreen
 import dev.bondar.ui.screens.currency_rate_info.NbpCurrencyRateInfoScreen
 
 @Composable

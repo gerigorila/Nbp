@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.bondar.nbp_main.currency_rate_info.usecase.GetCurrencyRateInfoUseCase
 import dev.bondar.nbp_main.toCurrencyState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

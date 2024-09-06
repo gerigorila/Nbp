@@ -1,8 +1,9 @@
-package dev.bondar.nbp_main.currency_rate_info
+package dev.bondar.nbp_main.currency_rate_info.usecase
 
 import dev.bondar.nbp.data.RatesRepository
 import dev.bondar.nbp.data.RequestResult
 import dev.bondar.nbp.data.map
+import dev.bondar.nbp_main.currency_rate_info.CurrencyRateUI
 import dev.bondar.nbp_main.toUiCurrencyRates
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow

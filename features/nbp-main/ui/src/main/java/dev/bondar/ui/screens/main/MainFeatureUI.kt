@@ -1,4 +1,4 @@
-package dev.bondar.ui
+package dev.bondar.ui.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.bondar.nbp_main.main.NbpMainViewModel
 import dev.bondar.nbp_main.main.State
-import dev.bondar.ui.screens.main.RateList
 import dev.bondar.uikit.NbpTheme
 
 @Composable
