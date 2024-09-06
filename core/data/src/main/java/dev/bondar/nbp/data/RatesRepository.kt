@@ -10,39 +10,42 @@ import dev.bondar.nbpapi.models.CurrencyResponseDTO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import kotlin.math.abs
 
 public class RatesRepository @Inject constructor(
     private val api: NbpApi,
     private val logger: Logger,
 ) {
-    public fun getTableRatesFromServer(query: String): Flow<RequestResult<List<Rate>>> {
-        val apiRequestTableA = flow { emit(api.table("A")) }
+    public fun getTableRatesFromServer(): Flow<RequestResult<List<Rate>>> {
+        val apiRequestTableA = flow { emit(api.table(TABLE_A)) }
             .onEach { result ->
-                if (result.isSuccess) logger.d("AAA", "Success result")
+                if (result.isSuccess)
+                    logger.d(RatesRepository::class.simpleName.toString(), "Success result")
             }
             .onEach { result ->
                 if (result.isFailure) {
                     logger.e(
-                        "AAA",
+                        RatesRepository::class.simpleName.toString(),
                         "Error getting data from server. Cause = ${result.exceptionOrNull()}"
                     )
                 }
             }
             .map { it.toRequestResult() }
 
-        val apiRequestTableB = flow { emit(api.table("B")) }
+        val apiRequestTableB = flow { emit(api.table(TABLE_B)) }
             .onEach { result ->
-                if (result.isSuccess) logger.d("AAA", "Success result")
+                if (result.isSuccess)
+                    logger.d(RatesRepository::class.simpleName.toString(), "Success result")
             }
             .onEach { result ->
                 if (result.isFailure) {
                     logger.e(
-                        "AAA",
+                        RatesRepository::class.simpleName.toString(),
                         "Error getting data from server. Cause = ${result.exceptionOrNull()}"
                     )
                 }
@@ -67,42 +70,37 @@ public class RatesRepository @Inject constructor(
         }
     }
 
-    public fun getCurrencyRateInfoFromServer(): Flow<RequestResult<List<CurrencyRate>>> {
+    public fun getCurrencyRateInfoFromServer(table: String, code: String): Flow<RequestResult<List<CurrencyRate>>> {
         val apiRequest = flow {
             emit(
                 api.currencyRate(
-                    table = "A",
-                    code = "HKD",
-                    startDate = "2024-08-01",
-                    endDate = "2024-09-03"
+                    table = table,
+                    code = code,
+                    startDate = LocalDate.now().minusDays(TWO_WEEKS).format(DateTimeFormatter.ofPattern(YYYY_MM_DD)),
+                    endDate = LocalDate.now().minusDays(ONE_DAY).format(DateTimeFormatter.ofPattern(YYYY_MM_DD))
                 )
             )
         }.onEach { result ->
-            if (result.isSuccess) logger.d("AAA", "Success result")
+            if (result.isSuccess)
+                logger.d(RatesRepository::class.simpleName.toString(), "Success result")
         }
             .onEach { result ->
                 if (result.isFailure) {
                     logger.e(
-                        "AAA",
+                        RatesRepository::class.simpleName.toString(),
                         "Error getting data from server. Cause = ${result.exceptionOrNull()}"
                     )
                 }
             }
             .map { it.toRequestResult() }
 
-        val start =
-            flowOf<RequestResult<CurrencyResponseDTO<CurrencyRateDTO>>>(RequestResult.InProgress())
-
-        return merge(
-            apiRequest,
-            start
-        ).map { result: RequestResult<CurrencyResponseDTO<CurrencyRateDTO>> ->
+        return apiRequest.map { result: RequestResult<CurrencyResponseDTO<CurrencyRateDTO>> ->
             result.map { response ->
                 response.rates.reversed().map {
                     it.toCurrencyRate(
                         currency = response.currency,
                         code = response.code,
-                        color = checkCurrencyTrend(response.rates.first().mid, it.mid)
+                        color = checkCurrencyTrend(response.rates.last().mid, it.mid)
                     )
                 }
             }
@@ -111,9 +109,15 @@ public class RatesRepository @Inject constructor(
 }
 
 private fun checkCurrencyTrend(firstMid: Double?, currentMid: Double?): Int {
-    return if (firstMid != null && currentMid != null && (firstMid - currentMid) < (firstMid * 0.01)) {
+    return if (firstMid != null && currentMid != null && abs(firstMid - currentMid) < (firstMid * PERCENTAGE))
+        Color.LTGRAY
+    else
         Color.RED
-    } else {
-        Color.BLACK
-    }
 }
+
+private const val PERCENTAGE = 0.01
+private const val TABLE_A = "A"
+private const val TABLE_B = "B"
+private const val ONE_DAY = 1L
+private const val TWO_WEEKS = 14L
+private const val YYYY_MM_DD = "yyyy-MM-dd"
