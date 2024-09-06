@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -45,6 +46,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.activity.compose)
     implementation(libs.nav.version)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(projects.features.nbpMain.ui)
 }
