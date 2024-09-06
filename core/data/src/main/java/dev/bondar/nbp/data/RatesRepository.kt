@@ -70,14 +70,19 @@ public class RatesRepository @Inject constructor(
         }
     }
 
-    public fun getCurrencyRateInfoFromServer(table: String, code: String): Flow<RequestResult<List<CurrencyRate>>> {
+    public fun getCurrencyRateInfoFromServer(
+        table: String,
+        code: String,
+    ): Flow<RequestResult<List<CurrencyRate>>> {
         val apiRequest = flow {
             emit(
                 api.currencyRate(
                     table = table,
                     code = code,
-                    startDate = LocalDate.now().minusDays(TWO_WEEKS).format(DateTimeFormatter.ofPattern(YYYY_MM_DD)),
-                    endDate = LocalDate.now().minusDays(ONE_DAY).format(DateTimeFormatter.ofPattern(YYYY_MM_DD))
+                    startDate = LocalDate.now().minusDays(TWO_WEEKS)
+                        .format(DateTimeFormatter.ofPattern(YYYY_MM_DD)),
+                    endDate = LocalDate.now().minusDays(ONE_DAY)
+                        .format(DateTimeFormatter.ofPattern(YYYY_MM_DD))
                 )
             )
         }.onEach { result ->
@@ -106,13 +111,13 @@ public class RatesRepository @Inject constructor(
             }
         }
     }
-}
 
-private fun checkCurrencyTrend(firstMid: Double?, currentMid: Double?): Int {
-    return if (firstMid != null && currentMid != null && abs(firstMid - currentMid) < (firstMid * PERCENTAGE))
-        Color.LTGRAY
-    else
-        Color.RED
+    private fun checkCurrencyTrend(firstMid: Double?, currentMid: Double?): Int {
+        return if (firstMid != null && currentMid != null && abs(firstMid - currentMid) < (firstMid * PERCENTAGE))
+            Color.LTGRAY
+        else
+            Color.RED
+    }
 }
 
 private const val PERCENTAGE = 0.01

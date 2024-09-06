@@ -49,4 +49,12 @@ dependencies {
     implementation(projects.core.common)
 
     implementation(libs.javax.inject)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
