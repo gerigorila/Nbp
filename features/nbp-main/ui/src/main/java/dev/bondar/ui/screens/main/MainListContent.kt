@@ -19,28 +19,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.bondar.nbp_main.main.RateUI
 import dev.bondar.nbp_main.main.State
+import dev.bondar.ui.routes.LocalNavigationHandler
 import dev.bondar.uikit.NbpTheme
 
 
 @Composable
 internal fun RateList(
     rateState: State.Success,
-    modifier: Modifier = Modifier,
-    onCurrencyClicked: (String?, String?) -> Unit
+    modifier: Modifier = Modifier
 ) {
-    RateList(rates = rateState.rates, modifier, onCurrencyClicked)
+    RateList(rates = rateState.rates, modifier)
 }
 
 @Composable
 internal fun RateList(
     rates: List<RateUI>,
     modifier: Modifier = Modifier,
-    onCurrencyClicked: (String?, String?) -> Unit = { _, _ -> },
 ) {
     LazyColumn(modifier = modifier.fillMaxWidth()) {
         items(rates) { ratesUI ->
             key(ratesUI.code) {
-                Rate(ratesUI, onCurrencyClicked = onCurrencyClicked)
+                Rate(ratesUI)
             }
         }
     }
@@ -50,12 +49,13 @@ internal fun RateList(
 internal fun Rate(
     rate: RateUI,
     modifier: Modifier = Modifier,
-    onCurrencyClicked: (String?, String?) -> Unit
 ) {
+    val localNavigationHandler = LocalNavigationHandler.current
+
     Row(
         modifier = modifier
             .padding(bottom = 4.dp)
-            .clickable { onCurrencyClicked.invoke(rate.code, rate.table) },
+            .clickable { localNavigationHandler?.invoke(rate.code, rate.table) },
         verticalAlignment = Alignment.CenterVertically
     ) {
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.bondar.nbp_main.main.NbpMainViewModel
 import dev.bondar.nbp_main.main.State
+import dev.bondar.ui.routes.LocalNavigationHandler
 import dev.bondar.uikit.NbpTheme
 
 @Composable
@@ -24,21 +26,22 @@ fun NbpMainScreen(modifier: Modifier = Modifier, onCurrencyClicked: (String?, St
     val state by viewModel.state.collectAsState()
     val currentState = state
 
-    NbpMainContent(currentState, modifier, onCurrencyClicked)
+    CompositionLocalProvider(LocalNavigationHandler provides onCurrencyClicked) {
+        NbpMainContent(currentState, modifier)
+    }
 }
 
 @Composable
 private fun NbpMainContent(
     currentState: State,
     modifier: Modifier = Modifier,
-    onCurrencyClicked: (String?, String?) -> Unit,
 ) {
     Column(modifier) {
         when (currentState) {
             is State.None -> Unit
             is State.Error -> ErrorMessage(currentState)
             is State.Loading -> ProgressIndicator(currentState)
-            is State.Success -> RateList(currentState, onCurrencyClicked = onCurrencyClicked)
+            is State.Success -> RateList(currentState)
         }
     }
 }
