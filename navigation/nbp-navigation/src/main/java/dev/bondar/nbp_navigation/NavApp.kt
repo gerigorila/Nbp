@@ -20,15 +20,11 @@ import dev.bondar.ui.screens.currency_rate_info.NbpCurrencyRateInfoScreen
 @Composable
 fun NavApp(modifier: Modifier) {
     val navController = rememberNavController()
-    CompositionLocalProvider(
-        LocalNavController provides navController
-    ) {
-        NavHost(
-            modifier = modifier,
-            navController = navController,
-            graph = rememberTypedNavGraph(navController)
-        )
-    }
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        graph = rememberTypedNavGraph(navController)
+    )
 }
 
 @Composable
