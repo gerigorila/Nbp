@@ -1,9 +1,6 @@
 package dev.bondar.nbp_navigation
 
-import android.widget.Button
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -13,22 +10,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.createGraph
 import androidx.navigation.toRoute
-import dev.bondar.ui.routes.LocalNavController
-import dev.bondar.ui.screens.main.NbpMainScreen
 import dev.bondar.ui.screens.currency_rate_info.NbpCurrencyRateInfoScreen
+import dev.bondar.ui.screens.main.NbpMainScreen
 
 @Composable
 fun NavApp(modifier: Modifier) {
     val navController = rememberNavController()
-    CompositionLocalProvider(
-        LocalNavController provides navController
-    ) {
-        NavHost(
-            modifier = modifier,
-            navController = navController,
-            graph = rememberTypedNavGraph(navController)
-        )
-    }
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        graph = rememberTypedNavGraph(navController)
+    )
 }
 
 @Composable
